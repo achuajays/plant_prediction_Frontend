@@ -76,7 +76,7 @@ const Home = () => {
           <div className="relative">
             <div className="aspect-square rounded-full bg-leaf-50/50 dark:bg-leaf-900/10 flex items-center justify-center p-8">
               <img 
-                src="/lovable-uploads/ebbb3a44-cd51-4a42-ba13-5c4db4a10fc6.png" 
+                src="/lovable-uploads/f40bfdef-ca33-4466-95cc-4dd2c60becdd.png" 
                 alt="Plant care illustration" 
                 className="w-full h-full object-contain"
               />

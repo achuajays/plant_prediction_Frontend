@@ -3,10 +3,11 @@ import { useState, useEffect } from "react";
 import { DropZone } from "@/components/DropZone";
 import { LoadingState } from "@/components/LoadingState";
 import { ResultCard } from "@/components/ResultCard";
-import { Leaf, Moon, Sun } from "lucide-react";
+import { Leaf, Moon, Sun, ArrowLeft } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
+import { Link } from "react-router-dom";
 
 interface Disease {
   prediction: string;
@@ -73,7 +74,17 @@ const Predict = () => {
   return (
     <div className="min-h-screen bg-gray-50 px-4 py-12 dark:bg-gray-900 transition-colors">
       <div className="mx-auto max-w-4xl space-y-8">
-        <div className="flex justify-end px-4">
+        <div className="flex justify-between px-4">
+          <Button
+            variant="ghost"
+            size="icon"
+            asChild
+            className="hover:bg-gray-100 dark:hover:bg-gray-800"
+          >
+            <Link to="/">
+              <ArrowLeft className="h-5 w-5" />
+            </Link>
+          </Button>
           <Button
             variant="ghost"
             size="icon"
