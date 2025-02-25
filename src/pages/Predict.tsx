@@ -9,12 +9,11 @@ import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
 
 interface Disease {
-  name: string;
-  confidence: number;
-  description: string;
+  prediction: string;
+  disease_info: string;
 }
 
-const Index = () => {
+const Predict = () => {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [result, setResult] = useState<Disease | null>(null);
   const [progress, setProgress] = useState(0);
@@ -42,16 +41,20 @@ const Index = () => {
       setIsAnalyzing(true);
       setResult(null);
 
-      // TODO: Replace with actual API call
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      
-      // Mockup response
-      setResult({
-        name: "Early Blight",
-        confidence: 85,
-        description:
-          "Early blight is a common disease affecting tomato and potato plants. It appears as dark brown spots with concentric rings on leaves.",
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const response = await fetch('http://localhost:8000/predict', {
+        method: 'POST',
+        body: formData,
       });
+
+      if (!response.ok) {
+        throw new Error('Failed to analyze image');
+      }
+
+      const data = await response.json();
+      setResult(data);
     } catch (error) {
       toast({
         title: "Error",
@@ -107,4 +110,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Predict;

@@ -29,7 +29,7 @@ export const DropZone: React.FC<DropZoneProps> = ({ onFileSelect }) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: {
-      "image/png": [".png"],
+      'image/*': [],
     },
     maxFiles: 1,
   });
@@ -77,7 +77,7 @@ export const DropZone: React.FC<DropZoneProps> = ({ onFileSelect }) => {
             <p className="text-sm font-medium dark:text-gray-300">
               {isDragActive ? "Drop your image here" : "Drop your leaf image here"}
             </p>
-            <p className="text-xs text-gray-500 dark:text-gray-400">PNG up to 10MB</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">All image types supported</p>
           </div>
         </div>
       )}
