@@ -1,12 +1,11 @@
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { DropZone } from "@/components/DropZone";
 import { LoadingState } from "@/components/LoadingState";
 import { ResultCard } from "@/components/ResultCard";
-import { Leaf, Moon, Sun, ArrowLeft } from "lucide-react";
+import { Leaf, ArrowLeft, Palette } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
-import { useTheme } from "next-themes";
 import { Link } from "react-router-dom";
 
 interface Disease {
@@ -18,24 +17,12 @@ const Predict = () => {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [result, setResult] = useState<Disease | null>(null);
   const [progress, setProgress] = useState(0);
+  const [isGreenTheme, setIsGreenTheme] = useState(false);
   const { toast } = useToast();
-  const { theme, setTheme } = useTheme();
 
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (isAnalyzing) {
-      interval = setInterval(() => {
-        setProgress((prev) => {
-          if (prev >= 90) return prev;
-          return prev + 10;
-        });
-      }, 200);
-    }
-    return () => {
-      if (interval) clearInterval(interval);
-      setProgress(0);
-    };
-  }, [isAnalyzing]);
+  const toggleTheme = () => {
+    setIsGreenTheme(!isGreenTheme);
+  };
 
   const analyzeLeaf = async (file: File) => {
     try {
@@ -72,14 +59,16 @@ const Predict = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className={`min-h-screen transition-colors duration-200 ${
+      isGreenTheme ? 'bg-leaf-50 text-leaf-900' : 'bg-white text-gray-900'
+    }`}>
       <div className="mx-auto max-w-4xl space-y-8 px-4 py-12">
         <div className="flex justify-between">
           <Button
             variant="ghost"
             size="icon"
             asChild
-            className="hover:bg-accent"
+            className="hover:bg-leaf-100/50"
           >
             <Link to="/">
               <ArrowLeft className="h-5 w-5" />
@@ -88,26 +77,24 @@ const Predict = () => {
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="hover:bg-accent"
+            onClick={toggleTheme}
+            className="hover:bg-leaf-100/50"
             aria-label="Toggle theme"
           >
-            {theme === "dark" ? (
-              <Sun className="h-5 w-5" />
-            ) : (
-              <Moon className="h-5 w-5" />
-            )}
+            <Palette className="h-5 w-5" />
           </Button>
         </div>
         
         <div className="text-center">
-          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-leaf-50 dark:bg-leaf-900/20">
+          <div className={`mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full ${
+            isGreenTheme ? 'bg-leaf-100' : 'bg-leaf-50'
+          }`}>
             <Leaf className="h-6 w-6 text-leaf-500" />
           </div>
           <h1 className="text-3xl font-semibold">
             Plant Disease Finder
           </h1>
-          <p className="mt-2 text-muted-foreground">
+          <p className={`mt-2 ${isGreenTheme ? 'text-leaf-800' : 'text-gray-600'}`}>
             Upload a leaf image to detect potential diseases
           </p>
         </div>
