@@ -72,14 +72,14 @@ const Predict = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 px-4 py-12 dark:bg-gray-900 transition-colors">
-      <div className="mx-auto max-w-4xl space-y-8">
-        <div className="flex justify-between px-4">
+    <div className="min-h-screen bg-background text-foreground">
+      <div className="mx-auto max-w-4xl space-y-8 px-4 py-12">
+        <div className="flex justify-between">
           <Button
             variant="ghost"
             size="icon"
             asChild
-            className="hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="hover:bg-accent"
           >
             <Link to="/">
               <ArrowLeft className="h-5 w-5" />
@@ -89,6 +89,7 @@ const Predict = () => {
             variant="ghost"
             size="icon"
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            className="hover:bg-accent"
             aria-label="Toggle theme"
           >
             {theme === "dark" ? (
@@ -103,10 +104,10 @@ const Predict = () => {
           <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-leaf-50 dark:bg-leaf-900/20">
             <Leaf className="h-6 w-6 text-leaf-500" />
           </div>
-          <h1 className="text-3xl font-semibold text-gray-900 dark:text-white">
+          <h1 className="text-3xl font-semibold">
             Plant Disease Finder
           </h1>
-          <p className="mt-2 text-gray-600 dark:text-gray-400">
+          <p className="mt-2 text-muted-foreground">
             Upload a leaf image to detect potential diseases
           </p>
         </div>
